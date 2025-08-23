@@ -55,8 +55,40 @@ console.log(italiano);
 
 
 // ex. 4
+// Exercise: Sort students by grade (descending) and return the top 3 students
+
+const students = [
+  { name: 'Alice', grade: 85 },
+  { name: 'Bob', grade: 92 },
+  { name: 'Charlie', grade: 78 },
+  { name: 'Diana', grade: 95 },
+  { name: 'Eve', grade: 88 },
+  { name: 'Frank', grade: 90 },
+];
+
+let descending = students
+.sort((a, b) => b.grade - a.grade)
+.slice(0,3);
+
+console.log(descending);
 
 
+// ex. 5 
+// Exercise: Extract all tags from all posts into a single array,
+// removing duplicates and sorting alphabetically
+
+const blogPosts = [
+  { title: 'Post 1', tags: ['javascript', 'web', 'frontend'] },
+  { title: 'Post 2', tags: ['nodejs', 'backend', 'javascript'] },
+  { title: 'Post 3', tags: ['react', 'frontend', 'web'] },
+  { title: 'Post 4', tags: ['mongodb', 'database', 'backend'] },
+];
+
+const nomi1 = blogPosts.flatMap(t => t.tags);
+
+const myset = Array.from(new Set(nomi1)).sort();
+
+console.log(myset);
 
 
 
@@ -285,3 +317,81 @@ const accounts = [
   { email: 'alice@Example.COM', age: 26, active: true, joinYear: 2019 },
   { email: 'TOM@example.com', age: 27, active: true, joinYear: 2023 },
 ];
+
+const user = accounts
+.filter(n => n.age > 25 && n.joinYear >= 2020 && n.active === true)
+.map(u => u.email.toLocaleLowerCase());
+
+console.log(user);
+
+
+
+// ex. 18
+// Exercise: Find the first month where all weeks had sales above 1000
+// Return the month index and verify if all subsequent months also meet this criteria
+
+const monthlySales = [
+  { month: 'Jan', weeks: [800, 1200, 900, 1100] },
+  { month: 'Feb', weeks: [1100, 1200, 1500, 1300] },
+  { month: 'Mar', weeks: [1200, 1100, 1400, 1300] },
+  { month: 'Apr', weeks: [900, 1000, 1100, 800] },
+  { month: 'May', weeks: [1100, 1200, 1300, 1400] },
+];
+
+const firstOne = monthlySales.find(item => item.weeks.every (week => week > 1000));
+console.log(firstOne);
+
+const bestWeek = monthlySales.filter(month => month.weeks .every(week => week > 1000));
+console.log(bestWeek);
+
+
+// ex .19
+// Exercise: Calculate the total price for each order
+// Apply discounts based on quantity: 5-9 items: 5%, 10+ items: 10%
+// Return array of objects with orderId and finalPrice
+
+const orders = [
+  {
+    orderId: 'A001',
+    items: [
+      { product: 'Widget', price: 10, quantity: 3 },
+      { product: 'Gadget', price: 20, quantity: 2 },
+    ],
+  },
+  {
+    orderId: 'A002',
+    items: [
+      { product: 'Widget', price: 10, quantity: 5 },
+      { product: 'Tool', price: 15, quantity: 6 },
+    ],
+  },
+  {
+    orderId: 'A003',
+    items: [
+      { product: 'Gadget', price: 20, quantity: 8 },
+      { product: 'Tool', price: 15, quantity: 4 },
+    ],
+  },
+];
+
+const totalOrdersWithDiscount = orders.map(order => {
+  const totalItems = order.items.reduce((acc, item) => acc + item.price* item.quantity, 0);
+  
+  let discount = 0;
+  if (totalItems >= 5) discount = 0.05;
+  else if (totalItems >= 10) discount = 0.10;
+
+  const totalPrice = order.items.reduce((acc, item) => acc + item.price * item.quantity, 0);
+
+  const totalAfterDiscount = totalPrice * (1 - discount);
+
+  return {
+    orderId: order.orderId,
+    totalItems,
+    discount: discount * 100 + '%',
+    total: totalAfterDiscount
+  };
+});
+
+console.log(totalOrdersWithDiscount);
+
