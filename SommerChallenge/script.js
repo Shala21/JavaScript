@@ -395,3 +395,95 @@ const totalOrdersWithDiscount = orders.map(order => {
 
 console.log(totalOrdersWithDiscount);
 
+
+// ex. 20
+// Exercise: Process the log entries to find:
+// 1. All unique user IDs who had errors
+// 2. The most common action type
+// 3. Average response time for successful requests (status 200)
+// 4. List of actions sorted by timestamp (newest first)
+
+const logs = [
+  {
+    userId: 101,
+    action: 'login',
+    status: 200,
+    responseTime: 120,
+    timestamp: '2024-01-10T10:00:00',
+  },
+  {
+    userId: 102,
+    action: 'upload',
+    status: 500,
+    responseTime: 450,
+    timestamp: '2024-01-10T10:05:00',
+  },
+  {
+    userId: 101,
+    action: 'download',
+    status: 200,
+    responseTime: 200,
+    timestamp: '2024-01-10T10:10:00',
+  },
+  {
+    userId: 103,
+    action: 'login',
+    status: 200,
+    responseTime: 100,
+    timestamp: '2024-01-10T10:15:00',
+  },
+  {
+    userId: 102,
+    action: 'login',
+    status: 401,
+    responseTime: 80,
+    timestamp: '2024-01-10T10:20:00',
+  },
+  {
+    userId: 104,
+    action: 'upload',
+    status: 200,
+    responseTime: 300,
+    timestamp: '2024-01-10T10:55:00',
+  },
+  {
+    userId: 101,
+    action: 'logout',
+    status: 200,
+    responseTime: 50,
+    timestamp: '2024-01-10T10:40:00',
+  },
+  {
+    userId: 103,
+    action: 'download',
+    status: 404,
+    responseTime: 150,
+    timestamp: '2024-01-10T10:35:00',
+  },
+];
+
+const problems = logs.filter(s => s.status !== 200);
+console.log(problems);
+
+
+const count = logs.reduce((acc, curr) => {
+  acc[curr.action] = (acc[curr.action] || 0) + 1;
+  return acc;
+}, {});
+
+const mostCommon = Object.keys(count).reduce((a, b) =>
+  count[a] > count[b] ? a : b
+);
+console.log( count);
+console.log(mostCommon);
+
+
+const successfulRequest = logs.filter(s => s.status === 200);
+console.log(successfulRequest);
+
+
+
+const timestampAction = logs.sort((a, b) => 
+  new Date (a.timestamp) - new Date (b.timestamp)
+);
+console.log(timestampAction);
