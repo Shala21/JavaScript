@@ -138,4 +138,40 @@ const copia = numerI.slice();
 console.log(copia); // [10, 20, 30]
 
 
-//
+// .flatMap() e un metodo degli array in JS che combina due operazioni, .map() e .flat(). In pratica: trasformi gli elementi e poi unisci gli array annidati in un unico array.
+const numNum = [1, 2, 3];
+
+const numerr = numNum.flatMap(n => [n, n * 2]); 
+console.log(numerr);//[1, 2, 2, 4, 3, 6]
+
+/* senza .fla(), usando solo il metodo .map() sotto vedi il risultato ->
+
+[
+  [1, 2],
+  [2, 4],
+  [3, 6]
+]
+*/
+
+
+// metodo Array.from() e new Set(). 
+// new Set() e una struttura dati che contiene valori unici. Quando crei un Set passando un array, elimina automaticamente tutti i duplicati.
+// Array.from() crea una nuova array a partire da un oggetto iterabile o array-like. Poiche un Set è iterabile, possiamo trasformalo in un array usando Array.from()
+
+
+// --> new Set
+const doppi = [1, 2, 3, 2, 1, 4, 5];
+
+const setDoppi = new Set(doppi);
+console.log(setDoppi);
+
+
+// --> Array.from
+const arrayUnico = Array.from(setDoppi);
+console.log(arrayUnico);
+
+// combinazione Array.from(new Set(...))
+const doppioni = [1, 2, 3, 2, 1, 4, 5];
+
+const noDoppi = Array.from(new Set(doppioni));
+console.log(noDoppi);
