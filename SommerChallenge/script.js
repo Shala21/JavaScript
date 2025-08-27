@@ -149,9 +149,11 @@ const categories = transactions.reduce((acc, t) => {
   }
   return acc[t.category] = t.amount;
   // 0 -> {} -> {Food: 25}
-  // 1 -> {Food: 25} -> {Food: 25, Transport: 15}
-  // 2 -> {Food: 25, Transport: 15} -> {Food: 50, Transport: 30}
-  // 3 -> {Food: 50, Transport: 15} -> {Food: 50, Transport: 45
+  // 1 -> {Food: 25, Transport: 15}
+  // 2 -> {Food: 55, Transport: 15}
+  // 3 -> {Food: 55, Transport: 15, Entertainment: 50}
+  // 3 -> {Food: 55, Transport: 35, Entertainment: 50}
+  // 3 -> {Food: 70, Transport: 35, Entertainment: 50}
 
 }, {});
 
@@ -1132,8 +1134,8 @@ const data = [
   }
 ];
 
-const limit = 50;
-const page = 1;
+const limit = 10;
+const page = 3;
 
 const paginateData = (data, limit, page) => {
   const startIndex = limit * (page - 1);
