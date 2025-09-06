@@ -150,7 +150,7 @@ fetch('https://jsonplaceholder.typicode.com/todos')    // -> fetch() is used to 
 // - Display as a simple ordered list
 
 async function displayPostsWithComments() { 
-  // Definiamo una funzione asincrona che carica i post e i commenti
+  // Definire una funzione asincrona che carica i post e i commenti
 
   const postsUrl = 'https://jsonplaceholder.typicode.com/posts';
   const commentsUrl = 'https://jsonplaceholder.typicode.com/comments';
@@ -220,3 +220,61 @@ displayPostsWithComments();
 // - Use find() to identify the album with most photos
 // - Display the album with most photos at the top as "Most Popular Album"
 // - Show all albums as a simple list below
+
+async function displayAlbumSummary() {
+      const albumUrl = 'https://jsonplaceholder.typicode.com/albums';
+      const photoUrl = 'https://jsonplaceholder.typicode.com/photos';
+
+      try {
+        // Fetch albums and photos in parallel
+        const [albumRes, photoRes] = await Promise.all([
+          fetch(albumUrl),
+          fetch(photoUrl)
+        ]);
+
+        if (!albumRes.ok) throw new Error(`Album fetch failed: ${albumRes.status}`);
+        if (!photoRes.ok) throw new Error(`Photo fetch failed: ${photoRes.status}`);
+
+        const albums = await albumRes.json();
+        const photos = await photoRes.json();
+
+        // Group photos by albumId using reduce()
+        const groupedPhotos = photos.reduce((acc, photo) => {
+          if (!acc[photo.albumId]) acc[photo.albumId] = [];
+          acc[photo.albumId].push(photo);
+          return acc;
+        }, {});
+
+        // Add photo count to each album
+        const albumsWithCount = albums.map(album => ({
+          ...album,
+          photoCount: groupedPhotos[album.id]?.length || 0
+        }));
+
+        // Find the album with the most photos
+        const mostPopular = albumsWithCount.reduce((max, album) => 
+          album.photoCount > max.photoCount ? album : max, albumsWithCount[0]
+        );
+
+        // Display Most Popular Album
+        const mostPopularDiv = document.getElementById('mostPopular');
+        mostPopularDiv.textContent = `${mostPopular.title} (Photos: ${mostPopular.photoCount})`;
+
+        // Display all albums as a simple list
+        const allAlbumsDiv = document.getElementById('allAlbums');
+        const ol = document.createElement('ol');
+
+        albumsWithCount.map(album => {
+          const li = document.createElement('li');
+          li.textContent = `${album.title} (Photos: ${album.photoCount})`;
+          ol.appendChild(li);
+        });
+
+        allAlbumsDiv.appendChild(ol);
+
+      } catch (error) {
+        console.error("Error:", error.message);
+      }
+    }
+
+    displayAlbumSummary();
