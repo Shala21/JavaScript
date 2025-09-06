@@ -59,7 +59,7 @@ fetch('https://jsonplaceholder.typicode.com/todos')    // -> fetch() is used to 
         }, {});
 
 
-        //  Problem with output -> User with most todos: 1 (20 todos)!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        //  -> Problem with output -> User with most todos: 1 (20 todos)!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         let maxUserId = null;
         let maxCount = 0;
         
@@ -73,23 +73,23 @@ fetch('https://jsonplaceholder.typicode.com/todos')    // -> fetch() is used to 
         console.log(completedTodos);
         console.log(countTotalTodos);
 
-        const p1 = document.createElement('p');     //   * Total number of todos
-        p1.textContent = `Total number of todos: ${totalTodos}`;
+        const p1 = document.createElement('p');     //   -> Total number of todos
+        p1.textContent = `Total number of to-do's: ${totalTodos}`;
 
-        const p2 = document.createElement('p');     //   * Number of completed todos
-        p2.textContent = `Number of completed todos: ${completedTodos.length}`;
+        const p2 = document.createElement('p');     //   -> Number of completed todos
+        p2.textContent = `Number of completed to-do's: ${completedTodos.length}`;
 
-        const p3 = document.createElement('p');     //   * Number of incomplete todos
-        p3.textContent = `Number of completed todos: ${incompletedTodos.length}`;
+        const p3 = document.createElement('p');     //   -> Number of incomplete todos
+        p3.textContent = `Number of completed to-do's: ${incompletedTodos.length}`;
 
         const p4 = document.createElement('p');
-        p4.textContent = `User with most todos: ${maxUserId} (${maxCount} todos)`;//  Problem with output -> User with most todos: 1 (20 todos)!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        p4.textContent = `User with most to-do's: ${maxUserId} (${maxCount} todos)`;//  -> Problem with output -> User with most todos: 1 (20 todos)!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         
         const container = document.getElementById('todo-list');
         container.appendChild(p1);
         container.appendChild(p2);
         container.appendChild(p3);
-        container.appendChild(p4);//  Problem with output -> User with most todos: 1 (20 todos)!!!!!!!!!!!!!!
+        container.appendChild(p4);//  -> Problem with output -> User with most todos: 1 (20 todos)!!!!!!!!!!!!!!
     })
     .catch(err => console.log('error:', err));
 
@@ -104,6 +104,39 @@ fetch('https://jsonplaceholder.typicode.com/todos')    // -> fetch() is used to 
 // - Use forEach() to append results to the DOM
 // - Show count of matching posts above the list
 
+ let allPosts = [];
+
+    // Fetch all posts from API
+    fetch('https://jsonplaceholder.typicode.com/posts')
+      .then(response => response.json())
+      .then(posts => {
+        allPosts = posts; // save posts globally
+        displayResults(posts); // initially show all posts
+      })
+      .catch(err => console.log('Error:', err));
+
+    // Grab input and attach event listener
+    const searchInput = document.getElementById('searchInput');
+    searchInput.addEventListener('input', () => {
+      const keyword = searchInput.value.toLowerCase();
+      const filteredPosts = allPosts.filter(post => post.title.toLowerCase().includes(keyword));
+      displayResults(filteredPosts);
+    });
+
+    // Function to display posts in the DOM
+    function displayResults(posts) {
+      const results = document.getElementById('results');
+      const count = document.getElementById('count');
+
+      results.innerHTML = ''; // clear previous results
+      count.textContent = `Matching posts: ${posts.length}`;
+
+      posts.forEach(post => {
+        const li = document.createElement('li');
+        li.textContent = post.title;
+        results.appendChild(li);
+      });
+    }
 
 // Exercise 4: Comments by Post
 // Display posts with their comment counts
@@ -116,6 +149,48 @@ fetch('https://jsonplaceholder.typicode.com/todos')    // -> fetch() is used to 
 //   * Number of comments for that post
 // - Display as a simple ordered list
 
+async function displayPostsWithComments() {
+      const postsUrl = 'https://jsonplaceholder.typicode.com/posts';
+      const commentsUrl = 'https://jsonplaceholder.typicode.com/comments';
+
+      try {
+        // Fetch both in parallel
+        const [postsRes, commentsRes] = await Promise.all([
+          fetch(postsUrl),
+          fetch(commentsUrl)
+        ]);
+
+        if (!postsRes.ok) throw new Error(`Posts fetch failed: ${postsRes.status}`);
+        if (!commentsRes.ok) throw new Error(`Comments fetch failed: ${commentsRes.status}`);
+
+        const posts = await postsRes.json();
+        const comments = await commentsRes.json();
+
+        // Only first 10 posts
+        const firstTenPosts = posts.slice(0, 10);
+
+        // Create an ordered list
+        const ol = document.createElement("ol");
+
+        // Map posts -> list items with comment counts
+        firstTenPosts.map(post => {
+          const commentCount = comments.filter(c => c.postId === post.id).length;
+
+          const li = document.createElement("li");
+          li.textContent = `${post.title} (Comments: ${commentCount})`;
+          ol.appendChild(li);
+        });
+
+        // Append list to container
+        const container = document.getElementById("postsContainer");
+        container.appendChild(ol);
+
+      } catch (error) {
+        console.error("Error:", error.message);
+      }
+    }
+
+    displayPostsWithComments();
 
 // Exercise 5: Album and Photo Counter
 // Create a summary page for albums and photos
