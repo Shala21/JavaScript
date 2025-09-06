@@ -149,48 +149,63 @@ fetch('https://jsonplaceholder.typicode.com/todos')    // -> fetch() is used to 
 //   * Number of comments for that post
 // - Display as a simple ordered list
 
-async function displayPostsWithComments() {
-      const postsUrl = 'https://jsonplaceholder.typicode.com/posts';
-      const commentsUrl = 'https://jsonplaceholder.typicode.com/comments';
+async function displayPostsWithComments() { 
+  // Definiamo una funzione asincrona che carica i post e i commenti
 
-      try {
-        // Fetch both in parallel
-        const [postsRes, commentsRes] = await Promise.all([
-          fetch(postsUrl),
-          fetch(commentsUrl)
-        ]);
+  const postsUrl = 'https://jsonplaceholder.typicode.com/posts';
+  const commentsUrl = 'https://jsonplaceholder.typicode.com/comments';
+  // URL delle API: una per i post e una per i commenti
 
-        if (!postsRes.ok) throw new Error(`Posts fetch failed: ${postsRes.status}`);
-        if (!commentsRes.ok) throw new Error(`Comments fetch failed: ${commentsRes.status}`);
+  try {
+    // Usiamo Promise.all per eseguire entrambe le fetch in parallelo
+    const [postsRes, commentsRes] = await Promise.all([
+      fetch(postsUrl),
+      fetch(commentsUrl)
+    ]);
 
-        const posts = await postsRes.json();
-        const comments = await commentsRes.json();
+    // Controllo se la risposta dei post non è andata a buon fine
+    if (!postsRes.ok) throw new Error(`Posts fetch failed: ${postsRes.status}`);
+    // Controllo se la risposta dei commenti non è andata a buon fine
+    if (!commentsRes.ok) throw new Error(`Comments fetch failed: ${commentsRes.status}`);
 
-        // Only first 10 posts
-        const firstTenPosts = posts.slice(0, 10);
+    // Convertiamo la risposta dei post in oggetto JavaScript
+    const posts = await postsRes.json();
+    // Convertiamo la risposta dei commenti in oggetto JavaScript
+    const comments = await commentsRes.json();
 
-        // Create an ordered list
-        const ol = document.createElement("ol");
+    // Prendiamo solo i primi 10 post
+    const firstTenPosts = posts.slice(0, 10);
 
-        // Map posts -> list items with comment counts
-        firstTenPosts.map(post => {
-          const commentCount = comments.filter(c => c.postId === post.id).length;
+    // Creiamo un elemento <ol> (lista ordinata) che conterrà i post
+    const ol = document.createElement("ol");
 
-          const li = document.createElement("li");
-          li.textContent = `${post.title} (Comments: ${commentCount})`;
-          ol.appendChild(li);
-        });
+    // Per ogni post dei primi 10...
+    firstTenPosts.map(post => {
+      // Contiamo i commenti relativi a quel post usando filter()
+      const commentCount = comments.filter(c => c.postId === post.id).length;
 
-        // Append list to container
-        const container = document.getElementById("postsContainer");
-        container.appendChild(ol);
+      // Creiamo un <li> per la lista
+      const li = document.createElement("li");
+      // Inseriamo dentro il titolo del post e il numero di commenti
+      li.textContent = `${post.title} (Comments: ${commentCount})`;
+      // Aggiungiamo il <li> all’<ol>
+      ol.appendChild(li);
+    });
 
-      } catch (error) {
-        console.error("Error:", error.message);
-      }
-    }
+    // Recuperiamo il contenitore dal DOM con id="postsContainer"
+    const container = document.getElementById("postsContainer");
+    // Appendiamo l’<ol> dentro al contenitore
+    container.appendChild(ol);
 
-    displayPostsWithComments();
+  } catch (error) {
+    // In caso di errore stampiamo il messaggio in console
+    console.error("Error:", error.message);
+  }
+}
+
+// Avviamo la funzione
+displayPostsWithComments();
+
 
 // Exercise 5: Album and Photo Counter
 // Create a summary page for albums and photos
