@@ -1,0 +1,27 @@
+body { font-family: Arial, sans-serif; padding: 20px; background: #f9f9f9; }
+    h1 { color: darkred; }
+    h2 { margin-top: 20px; color: darkblue; }
+    .container {
+      border: 1px solid #ddd;
+      padding: 15px;
+      margin: 15px 0;
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: 2px 2px 6px rgba(0,0,0,0.05);
+    }
+    button {
+      margin: 5px 0;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      background: #007BFF;
+      color: white;
+      border: none;
+    }
+    .output {
+      margin: 10px 0;
+      padding: 8px;
+      background: #f4f4f4;
+      border-radius: 6px;
+      font-family: monospace;
+    }
