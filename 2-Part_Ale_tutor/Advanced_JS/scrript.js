@@ -48,3 +48,58 @@ fakeRequest()
     // Gestione di una promessa con finally
 
     .finally(() => console.log('Richiesta conclusa'));
+
+
+
+// Catena di promesse semplici
+function randomNumber() {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve(5);
+        }, 1000);
+    });
+}
+
+randomNumber()
+.then((num) => {
+    return num * 2;
+})
+.then((num) => { 
+    console.log(num);
+    return num;
+})
+.then((numMultiplayer) => {
+    return numMultiplayer + 3;
+}) 
+.then((numMultiplayer) => { 
+    console.log(numMultiplayer);
+    return numMultiplayer;
+});
+
+
+// Catena di promesse con condizioni
+function getNumber() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            const num = Math.floor(Math.random() * 10) + 1; //number between 1 and 10
+            console.log("Numero iniziale:", num);
+            resolve(num);
+        }, 1000);
+    });
+}
+
+getNumber()
+.then((num) => {
+    if (num % 2 === 0) {
+        console.log('È pari → lo moltiplico per 2');
+        return num * 2 ; 
+    } else { 
+        console.log('È dispari → ci sommo 3');
+        return num + 3;
+    }
+})
+
+.then((newNum) => {
+    console.log('Risultato finale:', newNum);
+})
+.catch((err) => console.log('Errore', err));
