@@ -103,3 +103,40 @@ getNumber()
     console.log('Risultato finale:', newNum);
 })
 .catch((err) => console.log('Errore', err));
+
+
+// Catena di promesse con gestione di errori
+function getColor() {
+    const colors = ['red', 'Yellow', ' Blue', 'Green', 'White'];
+
+    return new Promise((resolve, reject) => {
+        setTimeout(() => { 
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            console.log(color);
+
+            if(color === "rosso") {
+                reject(new Error ('Il colore rosso non e un colore valido'));
+            } else {
+                resolve(color);
+            }
+        }, 1000)
+    })
+}
+getColor()
+.then((color) => {
+    console.log('Colore accettato: ', color);
+    return color.toUpperCase();
+})
+.then((upperColor) => {
+    console.log('Trasformato in maiuscolo: ', upperColor);
+    return `${upperColor}!!!`;
+})
+.then((finalResult) => {
+    console.log('Risultato finale; ', finalResult);
+})
+.catch((err) => {
+    console.error("❌ Errore:", err.message);
+})
+.finally(() => {
+    console.log("->Fine esecuzione<- :)");
+});
