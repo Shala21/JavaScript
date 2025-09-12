@@ -160,3 +160,18 @@ async function run() {
 }
 
 run();
+
+
+//Gestione degli errori con then e catch
+async function isEvenAsync(number) {
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    return number % 2 === 0;
+}
+
+isEvenAsync(7)
+.then(result => {
+    console.log("The result is: ", result);
+})
+.catch(err => {
+    console.log("Errore: ", err);
+});
