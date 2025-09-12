@@ -135,8 +135,28 @@ getColor()
     console.log('Risultato finale; ', finalResult);
 })
 .catch((err) => {
-    console.error("❌ Errore:", err.message);
+    console.error("Errore:", err.message);
 })
 .finally(() => {
     console.log("->Fine esecuzione<- :)");
 });
+
+
+
+// Gestione degli errori con catch
+async function failAfterTwoSeconds() {
+    await new Promise(resolve => setTimeout(resolve, 2000)); 
+    
+    throw new Error("Somthing went wrong after 2 seconds");
+}
+
+async function run() {
+    try { 
+        await failAfterTwoSeconds();
+        console.log("Does not exist as a msg");
+    } catch(err) {
+        console.error("Error:" , err.message);
+    }
+}
+
+run();
