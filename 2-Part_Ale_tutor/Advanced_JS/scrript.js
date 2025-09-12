@@ -242,3 +242,38 @@ Promise.allSettled([isEvenAsync(), thePub()])
         }
     });
 });
+
+
+
+// Funzione asincrona semplice
+async function greet() {
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    return "Hello, This async function it works:)"
+}
+
+greet()
+.then(message => console.log(message))
+.catch(err => console.error(err));
+
+
+// Gestione degli errori con try e catch
+async function isOddAsync(number) {
+    try {
+        // simula un ritardo di 1 secondo
+        await new Promise(resolve => setTimeout(resolve, 1000));
+
+        // verifica se il numero è dispari
+        const isOdd = number % 2 !== 0;
+
+        if (isOdd) {
+            return `Il numero ${number} è dispari`;
+        } else {
+            return `Il numero ${number} non è dispari`;
+        }
+    } catch (err) {
+        console.error("Errore catturato:", err);
+    }
+}
+
+// chiamata della funzione
+isOddAsync(7).then(message => console.log(message));
