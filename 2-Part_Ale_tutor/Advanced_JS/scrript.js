@@ -164,7 +164,7 @@ run();
 
 //Gestione degli errori con then e catch
 async function isEvenAsync(number) {
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    await new Promise(resolve => setTimeout(resolve, 1000));
     return number % 2 === 0;
 }
 
@@ -174,4 +174,49 @@ isEvenAsync(7)
 })
 .catch(err => {
     console.log("Errore: ", err);
+});
+
+
+
+// Gestione di errori in una catena di Promise
+function thePub() {
+    return new Promise((resolve, reject) => {
+        const success = Math.random() > 0.5;
+        setTimeout(() => {
+            if(success) {
+                resolve("Problem solved: yuo are in the right Pub:)");
+            } else {
+                reject(new Error("Access denied: Pub closed ;("));
+            }
+        }, 2000);
+    });
+}
+
+thePub()
+.then(message => { 
+    console.log("First step: ", message);
+    return thePub();
+})
+.then(message => { 
+    console.log("Second step: ", message);
+    return thePub();
+})
+.then(message => { 
+    console.log("Third step: ", message);
+    return thePub();
+})
+.catch(err => {
+    console.error("Error was find: ",err.message);
+});
+
+
+
+// Utilizza Promise.all
+Promise.all([isEvenAsync(), thePub()])
+.then(result => {
+    console.log("Both Promise are solved");
+    console.log("Reult: ", result);
+})
+.catch(err => {
+    console.error("Error in  one of the Promise: ", err);
 });
