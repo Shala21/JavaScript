@@ -220,3 +220,25 @@ Promise.all([isEvenAsync(), thePub()])
 .catch(err => {
     console.error("Error in  one of the Promise: ", err);
 });
+Promise.race([getColor(), failAfterTwoSeconds()])
+.then(result => {
+    console.log("The first Promisse is complete: ", result);
+})
+.catch(err => {
+    console.error("Errore: ",err);
+});
+
+
+
+// Utilizzare Promise.allSettled
+Promise.allSettled([isEvenAsync(), thePub()])
+.then(result => {
+    console.log("All Promise are completed");
+    result.forEach((result, index) => {
+        if(result.status === "fulfilled") {
+            console.log(`Promise ${index + 1} solved with:`, result.value);
+        } else {
+            console.log(`Promise ${index + 1} rifiutata con:`, result.reason.message);
+        }
+    });
+});
