@@ -1,16 +1,3 @@
-async function getData() {
-    try {
-        const response = await fetch('https://jsonplaceholder.typicode.com/todos');
-        const data = await response.json();
-        console.log(data);
-
-    } catch (error) {
-        console.error(error.message);
-    }
-}
-getData();
-
-
 
 async function fetchData(url) {
     try {
@@ -304,3 +291,41 @@ async function thirdAction() {
     console.log(result2);
 }
 thirdAction();
+
+
+// Eseguire una richiesta GET
+async function getData() {
+    try {
+        const response = await fetch('https://jsonplaceholder.typicode.com/todos');
+        const data = await response.json();
+        console.log(data);
+
+    } catch (error) {
+        console.error(error.message);
+    }
+}
+getData();
+
+
+
+// Esigui una richiesta POST
+  userForm.onsubmit = async (e) => {
+      e.preventDefault(); // non ricaricare la pagina
+
+      let nome = name.value;
+      let email = email.value;
+
+      try {
+        let res = await fetch("https://jsonplaceholder.typicode.com/posts", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name: nome, email: email })
+        });
+
+        let data = await res.json();
+        risultato.innerText = "Risposta: " + JSON.stringify(data);
+
+      } catch (err) {
+        risultato.innerText = "Errore: " + err;
+      }
+    }
