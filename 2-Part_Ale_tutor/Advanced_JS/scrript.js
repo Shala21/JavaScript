@@ -293,7 +293,7 @@ async function thirdAction() {
 thirdAction();
 
 
-// Eseguire una richiesta GET
+// Eseguire una richiesta GET --> 
 async function getData() {
     try {
         const response = await fetch('https://jsonplaceholder.typicode.com/todos');
@@ -308,7 +308,7 @@ getData();
 
 
 
-// Esigui una richiesta POST
+// Esigui una richiesta POST -->
   userForm.onsubmit = async (e) => {
       e.preventDefault(); // non ricaricare la pagina
 
@@ -332,7 +332,7 @@ getData();
 
 
 
-// Gestione degli errori con async e await 
+// Gestione degli errori con async e await -->
  async function fetchData(url) {
   try {
     // Invio richiesta GET all'API
@@ -356,3 +356,27 @@ getData();
 
 // Esempio di utilizzo
 fetchData("https://jsonplaceholder.typicode.com/todos?_limit=5");
+
+
+
+// Utilizzare un API che supporta cors -->
+ document.getElementById("carica").onclick = async () => {
+      try {
+        // Richiesta GET all'API pubblica
+        const response = await fetch("https://jsonplaceholder.typicode.com/todos");
+        const data = await response.json();
+
+        // Inserisco i dati nell'HTML
+        const ul = document.getElementById("risultato");
+        ul.innerHTML = ""; // pulisco la lista
+        data.forEach(todo => {
+          const li = document.createElement("li");
+          li.textContent = todo.title;
+          ul.appendChild(li);
+        });
+
+      } catch (error) {
+        // Gestione errori
+        document.getElementById("risultato").textContent = "Errore: " + error;
+      }
+    };
