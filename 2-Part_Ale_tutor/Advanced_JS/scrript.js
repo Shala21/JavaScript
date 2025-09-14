@@ -329,3 +329,30 @@ getData();
         risultato.innerText = "Errore: " + err;
       }
     }
+
+
+
+// Gestione degli errori con async e await 
+ async function fetchData(url) {
+  try {
+    // Invio richiesta GET all'API
+    const response = await fetch(url);
+
+    // Controllo se la risposta è OK (status 200-299)
+    if (!response.ok) {
+      throw new Error(`Errore HTTP! Status: ${response.status}`);
+    }
+
+    // Converto la risposta in JSON
+    const data = await response.json();
+    console.log("Dati ricevuti:", data);
+    return data;
+
+  } catch (error) {
+    // Gestione errori (rete, JSON non valido, status non OK)
+    console.error("Errore durante la richiesta:", error.message);
+  }
+}
+
+// Esempio di utilizzo
+fetchData("https://jsonplaceholder.typicode.com/todos?_limit=5");
