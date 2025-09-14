@@ -26,7 +26,7 @@ fetchData('https://jsonplaceholder.typicode.com/posts');
 fetchData('https://jsonplaceholder.typicode.com/todos');
 
 
-// Crea una promessa semplice 
+// Crea una promessa semplice  -->
 function fakeRequest() {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
@@ -51,7 +51,7 @@ fakeRequest()
 
 
 
-// Catena di promesse semplici
+// Catena di promesse semplici -->
 function randomNumber() {
     return new Promise((resolve) => {
         setTimeout(() => {
@@ -77,7 +77,7 @@ randomNumber()
 });
 
 
-// Catena di promesse con condizioni
+// Catena di promesse con condizioni -->
 function getNumber() {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
@@ -105,7 +105,7 @@ getNumber()
 .catch((err) => console.log('Errore', err));
 
 
-// Catena di promesse con gestione di errori
+// Catena di promesse con gestione di errori -->
 function getColor() {
     const colors = ['red', 'Yellow', ' Blue', 'Green', 'White'];
 
@@ -143,7 +143,7 @@ getColor()
 
 
 
-// Gestione degli errori con catch
+// Gestione degli errori con catch -->
 async function failAfterTwoSeconds() {
     await new Promise(resolve => setTimeout(resolve, 2000)); 
     
@@ -162,7 +162,7 @@ async function run() {
 run();
 
 
-//Gestione degli errori con then e catch
+//Gestione degli errori con then e catch -->
 async function isEvenAsync(number) {
     await new Promise(resolve => setTimeout(resolve, 1000));
     return number % 2 === 0;
@@ -178,7 +178,7 @@ isEvenAsync(7)
 
 
 
-// Gestione di errori in una catena di Promise
+// Gestione di errori in una catena di Promise -->
 function thePub() {
     return new Promise((resolve, reject) => {
         const success = Math.random() > 0.5;
@@ -211,7 +211,7 @@ thePub()
 
 
 
-// Utilizza Promise.all
+// Utilizza Promise.all -->
 Promise.all([isEvenAsync(), thePub()])
 .then(result => {
     console.log("Both Promise are solved");
@@ -220,6 +220,9 @@ Promise.all([isEvenAsync(), thePub()])
 .catch(err => {
     console.error("Error in  one of the Promise: ", err);
 });
+
+
+// Utilizza Promise.race -->
 Promise.race([getColor(), failAfterTwoSeconds()])
 .then(result => {
     console.log("The first Promisse is complete: ", result);
@@ -230,7 +233,7 @@ Promise.race([getColor(), failAfterTwoSeconds()])
 
 
 
-// Utilizzare Promise.allSettled
+// Utilizzare Promise.allSettled -->
 Promise.allSettled([isEvenAsync(), thePub()])
 .then(result => {
     console.log("All Promise are completed");
@@ -245,7 +248,7 @@ Promise.allSettled([isEvenAsync(), thePub()])
 
 
 
-// Funzione asincrona semplice
+// Funzione asincrona semplice -->
 async function greet() {
     await new Promise(resolve => setTimeout(resolve, 2000));
     return "Hello, This async function it works:)"
@@ -256,7 +259,7 @@ greet()
 .catch(err => console.error(err));
 
 
-// Gestione degli errori con try e catch
+// Gestione degli errori con try e catch -->
 async function isOddAsync(number) {
     try {
         // simula un ritardo di 1 secondo
@@ -277,3 +280,27 @@ async function isOddAsync(number) {
 
 // chiamata della funzione
 isOddAsync(7).then(message => console.log(message));
+
+
+// Funzione asincrone in serie -->
+async function firstAction() {
+    await new Promise(resolve => setTimeout (resolve, 1000));
+    return "Function call: This is the first call action line 285!"
+    
+}
+// firstAction().then(message => console.log(message));
+
+async function secondAction() {
+    await new Promise( resolve => setTimeout(resolve, 1500));
+    return "Function call: This is the first call action line 292!"
+}
+// secondAction().then(message => console.log(message));
+
+async function thirdAction() {
+    const result1 = await firstAction();
+    console.log(result1 );
+
+    const result2 = await secondAction();
+    console.log(result2);
+}
+thirdAction();
