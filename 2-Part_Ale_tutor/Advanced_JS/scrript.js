@@ -480,11 +480,16 @@ deletStorage();
 
 // Oggetto Documento -->
 let p = document.getElementById("container");
+// Modifica il testo di un <p></p> 
 p.innerText = "The text was changed with:  document.getElementById!";
 
 
 // QuerySelector -->
 let p1 = document.querySelector("#container1");
-
 // Modifica il testo di un <p></p> 
 p1.innerText = "The text was changed with: querySelector!";
+
+// Cambia stile
+p1.style.background = " lightblue";
+p1.style.fontSize = "25px";
+p1.style.padding = "10px";  
