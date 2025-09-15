@@ -48,20 +48,20 @@ function randomNumber() {
 }
 
 randomNumber()
-.then((num) => {
-    return num * 2;
-})
-.then((num) => { 
-    console.log(num);
-    return num;
-})
-.then((numMultiplayer) => {
-    return numMultiplayer + 3;
-}) 
-.then((numMultiplayer) => { 
-    console.log(numMultiplayer);
-    return numMultiplayer;
-});
+    .then((num) => {
+        return num * 2;
+    })
+    .then((num) => {
+        console.log(num);
+        return num;
+    })
+    .then((numMultiplayer) => {
+        return numMultiplayer + 3;
+    })
+    .then((numMultiplayer) => {
+        console.log(numMultiplayer);
+        return numMultiplayer;
+    });
 
 
 // Catena di promesse con condizioni -->
@@ -76,20 +76,20 @@ function getNumber() {
 }
 
 getNumber()
-.then((num) => {
-    if (num % 2 === 0) {
-        console.log('È pari → lo moltiplico per 2');
-        return num * 2 ; 
-    } else { 
-        console.log('È dispari → ci sommo 3');
-        return num + 3;
-    }
-})
+    .then((num) => {
+        if (num % 2 === 0) {
+            console.log('È pari → lo moltiplico per 2');
+            return num * 2;
+        } else {
+            console.log('È dispari → ci sommo 3');
+            return num + 3;
+        }
+    })
 
-.then((newNum) => {
-    console.log('Risultato finale:', newNum);
-})
-.catch((err) => console.log('Errore', err));
+    .then((newNum) => {
+        console.log('Risultato finale:', newNum);
+    })
+    .catch((err) => console.log('Errore', err));
 
 
 // Catena di promesse con gestione di errori -->
@@ -97,12 +97,12 @@ function getColor() {
     const colors = ['red', 'Yellow', ' Blue', 'Green', 'White'];
 
     return new Promise((resolve, reject) => {
-        setTimeout(() => { 
+        setTimeout(() => {
             const color = colors[Math.floor(Math.random() * colors.length)];
             console.log(color);
 
-            if(color === "rosso") {
-                reject(new Error ('Il colore rosso non e un colore valido'));
+            if (color === "rosso") {
+                reject(new Error('Il colore rosso non e un colore valido'));
             } else {
                 resolve(color);
             }
@@ -110,39 +110,39 @@ function getColor() {
     })
 }
 getColor()
-.then((color) => {
-    console.log('Colore accettato: ', color);
-    return color.toUpperCase();
-})
-.then((upperColor) => {
-    console.log('Trasformato in maiuscolo: ', upperColor);
-    return `${upperColor}!!!`;
-})
-.then((finalResult) => {
-    console.log('Risultato finale; ', finalResult);
-})
-.catch((err) => {
-    console.error("Errore:", err.message);
-})
-.finally(() => {
-    console.log("->Fine esecuzione<- :)");
-});
+    .then((color) => {
+        console.log('Colore accettato: ', color);
+        return color.toUpperCase();
+    })
+    .then((upperColor) => {
+        console.log('Trasformato in maiuscolo: ', upperColor);
+        return `${upperColor}!!!`;
+    })
+    .then((finalResult) => {
+        console.log('Risultato finale; ', finalResult);
+    })
+    .catch((err) => {
+        console.error("Errore:", err.message);
+    })
+    .finally(() => {
+        console.log("->Fine esecuzione<- :)");
+    });
 
 
 
 // Gestione degli errori con catch -->
 async function failAfterTwoSeconds() {
-    await new Promise(resolve => setTimeout(resolve, 2000)); 
-    
+    await new Promise(resolve => setTimeout(resolve, 2000));
+
     throw new Error("Somthing went wrong after 2 seconds");
 }
 
 async function run() {
-    try { 
+    try {
         await failAfterTwoSeconds();
         console.log("Does not exist as a msg");
-    } catch(err) {
-        console.error("Error:" , err.message);
+    } catch (err) {
+        console.error("Error:", err.message);
     }
 }
 
@@ -156,12 +156,12 @@ async function isEvenAsync(number) {
 }
 
 isEvenAsync(7)
-.then(result => {
-    console.log("The result is: ", result);
-})
-.catch(err => {
-    console.log("Errore: ", err);
-});
+    .then(result => {
+        console.log("The result is: ", result);
+    })
+    .catch(err => {
+        console.log("Errore: ", err);
+    });
 
 
 
@@ -170,7 +170,7 @@ function thePub() {
     return new Promise((resolve, reject) => {
         const success = Math.random() > 0.5;
         setTimeout(() => {
-            if(success) {
+            if (success) {
                 resolve("Problem solved: yuo are in the right Pub:)");
             } else {
                 reject(new Error("Access denied: Pub closed ;("));
@@ -180,58 +180,58 @@ function thePub() {
 }
 
 thePub()
-.then(message => { 
-    console.log("First step: ", message);
-    return thePub();
-})
-.then(message => { 
-    console.log("Second step: ", message);
-    return thePub();
-})
-.then(message => { 
-    console.log("Third step: ", message);
-    return thePub();
-})
-.catch(err => {
-    console.error("Error was find: ",err.message);
-});
+    .then(message => {
+        console.log("First step: ", message);
+        return thePub();
+    })
+    .then(message => {
+        console.log("Second step: ", message);
+        return thePub();
+    })
+    .then(message => {
+        console.log("Third step: ", message);
+        return thePub();
+    })
+    .catch(err => {
+        console.error("Error was find: ", err.message);
+    });
 
 
 
 // Utilizza Promise.all -->
 Promise.all([isEvenAsync(), thePub()])
-.then(result => {
-    console.log("Both Promise are solved");
-    console.log("Reult: ", result);
-})
-.catch(err => {
-    console.error("Error in  one of the Promise: ", err);
-});
+    .then(result => {
+        console.log("Both Promise are solved");
+        console.log("Reult: ", result);
+    })
+    .catch(err => {
+        console.error("Error in  one of the Promise: ", err);
+    });
 
 
 // Utilizza Promise.race -->
 Promise.race([getColor(), failAfterTwoSeconds()])
-.then(result => {
-    console.log("The first Promisse is complete: ", result);
-})
-.catch(err => {
-    console.error("Errore: ",err);
-});
+    .then(result => {
+        console.log("The first Promisse is complete: ", result);
+    })
+    .catch(err => {
+        console.error("Errore: ", err);
+    });
 
 
 
 // Utilizzare Promise.allSettled -->
 Promise.allSettled([isEvenAsync(), thePub()])
-.then(result => {
-    console.log("All Promise are completed");
-    result.forEach((result, index) => {
-        if(result.status === "fulfilled") {
-            console.log(`Promise ${index + 1} solved with:`, result.value);
-        } else {
-            console.log(`Promise ${index + 1} rifiutata con:`, result.reason.message);
-        }
+    .then(result => {
+        console.log("All Promise are completed");
+        result.forEach((result, index) => {
+            if (result.status === "fulfilled") {
+                console.log(`Promise ${index + 1} solved with:`, result.value);
+            } else {
+                console.log(`Promise ${index + 1} rifiutata con:`, result.reason.message);
+            }
+        });
     });
-});
 
 
 
@@ -242,8 +242,8 @@ async function greet() {
 }
 
 greet()
-.then(message => console.log(message))
-.catch(err => console.error(err));
+    .then(message => console.log(message))
+    .catch(err => console.error(err));
 
 
 // Gestione degli errori con try e catch -->
@@ -271,21 +271,21 @@ isOddAsync(7).then(message => console.log(message));
 
 // Funzione asincrone in serie -->
 async function firstAction() {
-    await new Promise(resolve => setTimeout (resolve, 1000));
+    await new Promise(resolve => setTimeout(resolve, 1000));
     return "Function call: This is the first call action line 285!"
-    
+
 }
 // firstAction().then(message => console.log(message));
 
 async function secondAction() {
-    await new Promise( resolve => setTimeout(resolve, 1500));
+    await new Promise(resolve => setTimeout(resolve, 1500));
     return "Function call: This is the first call action line 292!"
 }
 // secondAction().then(message => console.log(message));
 
 async function thirdAction() {
     const result1 = await firstAction();
-    console.log(result1 );
+    console.log(result1);
 
     const result2 = await secondAction();
     console.log(result2);
@@ -309,49 +309,49 @@ getData();
 
 
 // Esigui una richiesta POST -->
-  userForm.onsubmit = async (e) => {
-      e.preventDefault(); // non ricaricare la pagina
+userForm.onsubmit = async (e) => {
+    e.preventDefault(); // non ricaricare la pagina
 
-      let nome = name.value;
-      let email = email.value;
+    let nome = name.value;
+    let email = email.value;
 
-      try {
+    try {
         let res = await fetch("https://jsonplaceholder.typicode.com/posts", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name: nome, email: email })
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name: nome, email: email })
         });
 
         let data = await res.json();
         risultato.innerText = "Risposta: " + JSON.stringify(data);
 
-      } catch (err) {
+    } catch (err) {
         risultato.innerText = "Errore: " + err;
-      }
     }
+}
 
 
 
 // Gestione degli errori con async e await -->
- async function fetchData(url) {
-  try {
-    // Invio richiesta GET all'API
-    const response = await fetch(url);
+async function fetchData(url) {
+    try {
+        // Invio richiesta GET all'API
+        const response = await fetch(url);
 
-    // Controllo se la risposta è OK (status 200-299)
-    if (!response.ok) {
-      throw new Error(`Errore HTTP! Status: ${response.status}`);
+        // Controllo se la risposta è OK (status 200-299)
+        if (!response.ok) {
+            throw new Error(`Errore HTTP! Status: ${response.status}`);
+        }
+
+        // Converto la risposta in JSON
+        const data = await response.json();
+        console.log("Dati ricevuti:", data);
+        return data;
+
+    } catch (error) {
+        // Gestione errori (rete, JSON non valido, status non OK)
+        console.error("Errore durante la richiesta:", error.message);
     }
-
-    // Converto la risposta in JSON
-    const data = await response.json();
-    console.log("Dati ricevuti:", data);
-    return data;
-
-  } catch (error) {
-    // Gestione errori (rete, JSON non valido, status non OK)
-    console.error("Errore durante la richiesta:", error.message);
-  }
 }
 
 fetchData("https://jsonplaceholder.typicode.com/todos?_limit=5");
@@ -359,8 +359,8 @@ fetchData("https://jsonplaceholder.typicode.com/todos?_limit=5");
 
 
 // Utilizzare un API che supporta cors -->
- document.getElementById("carica").onclick = async () => {
-      try {
+document.getElementById("carica").onclick = async () => {
+    try {
         // Richiesta GET all'API pubblica
         const response = await fetch("https://jsonplaceholder.typicode.com/todos");
         const data = await response.json();
@@ -369,40 +369,40 @@ fetchData("https://jsonplaceholder.typicode.com/todos?_limit=5");
         const ul = document.getElementById("risultato");
         ul.innerHTML = ""; // pulisco la lista
         data.forEach(todo => {
-          const li = document.createElement("li");
-          li.textContent = todo.title;
-          ul.appendChild(li);
+            const li = document.createElement("li");
+            li.textContent = todo.title;
+            ul.appendChild(li);
         });
 
-      } catch (error) {
+    } catch (error) {
         // Gestione errori
         document.getElementById("risultato").textContent = "Errore: " + error;
-      }
-    };
+    }
+};
 
 
-// Gestire i cookies
 
+// Gestire i cookies -->
 // Crea e salva un cookie "username=Mario"
 function steCookie() {
-    document.cookie = "username= Altin ;" ;
-    console.log("Cookie salvaato: ",document.cookie);
+    document.cookie = "username= Altin ;";
+    console.log("Cookie salvaato: ", document.cookie);
 }
 
 // Recupera il cookie 
-function getCookie() { 
+function getCookie() {
     let cookie = document.cookie;
-    if(cookie.includes("username=")) {
+    if (cookie.includes("username=")) {
         let valore = cookie.split("username=")[1].split(";")[0];
-        console.log("Cookie trovat: ", valore );
-    }else {
+        console.log("Cookie trovat: ", valore);
+    } else {
         console.log("Cookie non trovato");
     }
 }
 
 // Elimina i Cookie
 function deleteCookie() {
-    document.cookie =  "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     console.log("Cookie eliminato!");
 }
 
@@ -411,18 +411,18 @@ getCookie();
 deleteCookie();
 
 
-// Utilizza il local storage
 
+// Utilizza il local storage -->
 // Save data
 function saveData() {
-    localStorage.setItem("username", "Altin"); 
+    localStorage.setItem("username", "Altin");
     console.log("Data saved:", localStorage.getItem("username"));
 }
 
 // Retrieve Data
 function readData() {
     let value = localStorage.getItem("username");
-    console.log("Data recovered: ", value)
+    console.log("Data recovered: ", value);
 }
 
 //Delete data
@@ -431,17 +431,47 @@ function deleteData() {
     console.log("Remuved data. Current data: ", localStorage.getItem("username"));
 }
 
- saveData();
- readData();
- deleteData();
+saveData();
+readData();
+deleteData();
 
- // Utilizza il sessionStorage
 
- // Save data
- sessionStorage.setItem("username","Altin");
- // Read data
- console.log("SessionStorage:", sessionStorage.getItem("username"));
- // delete data
- sessionStorage.removeItem("username");
- // cotrol data
- console.log("SessionStorage dopo remove:", sessionStorage.getItem("username"));
+
+// Utilizza il sessionStorage -->
+// Save data
+sessionStorage.setItem("username", "Altin");
+// Read data
+console.log("SessionStorage:", sessionStorage.getItem("username"));
+// delete data
+sessionStorage.removeItem("username");
+// cotrol data
+console.log("SessionStorage dopo remove:", sessionStorage.getItem("username"));
+
+
+
+// Utilizza sessionStorage e localStorage insieme -->
+function localSessionStorage() {
+    ;
+    localStorage.setItem("job", "developer");
+    sessionStorage.setItem("job", "developer");
+    console.log("Data saved is: ", localStorage.getItem("job"));
+    console.log("Data saved is: ", sessionStorage.getItem("job"));
+}
+
+function readStorage() {
+    let value = localStorage.getItem("job");
+    let value1 = sessionStorage.getItem("job");
+    console.log("Data saved is: ", value);
+    console.log("Data saved is: ", value1);
+}
+
+function deletStorage() {
+    localStorage.removeItem("job");
+    sessionStorage.removeItem("job");
+    console.log("Remuved data. Current data: ", localStorage.getItem("job"));
+    console.log("Remuved data. Current data: ", sessionStorage.getItem("job"));
+}
+
+localSessionStorage();
+readStorage();
+deletStorage();
