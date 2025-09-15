@@ -475,3 +475,16 @@ function deletStorage() {
 localSessionStorage();
 readStorage();
 deletStorage();
+
+
+
+// Oggetto Documento -->
+let p = document.getElementById("container");
+p.innerText = "The text was changed with:  document.getElementById!";
+
+
+// QuerySelector -->
+let p1 = document.querySelector("#container1");
+
+// Modifica il testo di un <p></p> 
+p1.innerText = "The text was changed with: querySelector!";
