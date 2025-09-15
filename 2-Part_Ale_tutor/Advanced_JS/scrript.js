@@ -434,3 +434,14 @@ function deleteData() {
  saveData();
  readData();
  deleteData();
+
+ // Utilizza il sessionStorage
+
+ // Save data
+ sessionStorage.setItem("username","Altin");
+ // Read data
+ console.log("SessionStorage:", sessionStorage.getItem("username"));
+ // delete data
+ sessionStorage.removeItem("username");
+ // cotrol data
+ console.log("SessionStorage dopo remove:", sessionStorage.getItem("username"));
