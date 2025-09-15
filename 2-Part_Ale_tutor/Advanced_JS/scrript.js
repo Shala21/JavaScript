@@ -354,7 +354,6 @@ getData();
   }
 }
 
-// Esempio di utilizzo
 fetchData("https://jsonplaceholder.typicode.com/todos?_limit=5");
 
 
@@ -380,3 +379,58 @@ fetchData("https://jsonplaceholder.typicode.com/todos?_limit=5");
         document.getElementById("risultato").textContent = "Errore: " + error;
       }
     };
+
+
+// Gestire i cookies
+
+// Crea e salva un cookie "username=Mario"
+function steCookie() {
+    document.cookie = "username= Altin ;" ;
+    console.log("Cookie salvaato: ",document.cookie);
+}
+
+// Recupera il cookie 
+function getCookie() { 
+    let cookie = document.cookie;
+    if(cookie.includes("username=")) {
+        let valore = cookie.split("username=")[1].split(";")[0];
+        console.log("Cookie trovat: ", valore );
+    }else {
+        console.log("Cookie non trovato");
+    }
+}
+
+// Elimina i Cookie
+function deleteCookie() {
+    document.cookie =  "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    console.log("Cookie eliminato!");
+}
+
+steCookie();
+getCookie();
+deleteCookie();
+
+
+// Utilizza il local storage
+
+// Save data
+function saveData() {
+    localStorage.setItem("username", "Altin"); 
+    console.log("Data saved:", localStorage.getItem("username"));
+}
+
+// Retrieve Data
+function readData() {
+    let value = localStorage.getItem("username");
+    console.log("Data recovered: ", value)
+}
+
+//Delete data
+function deleteData() {
+    localStorage.removeItem("username");
+    console.log("Remuved data. Current data: ", localStorage.getItem("username"));
+}
+
+ saveData();
+ readData();
+ deleteData();
