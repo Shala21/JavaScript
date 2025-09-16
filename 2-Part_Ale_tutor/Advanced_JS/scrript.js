@@ -1,3 +1,5 @@
+/*
+const { createElement } = require("react");
 
 async function fetchData(url) {
     try {
@@ -11,6 +13,7 @@ async function fetchData(url) {
 }
 fetchData('https://jsonplaceholder.typicode.com/posts');
 fetchData('https://jsonplaceholder.typicode.com/todos');
+*/
 
 
 // Crea una promessa semplice  -->
@@ -489,7 +492,49 @@ let p1 = document.querySelector("#container1");
 // Modifica il testo di un <p></p> 
 p1.innerText = "The text was changed with: querySelector!";
 
-// Cambia stile
+// Cambia stile con js
 p1.style.background = " lightblue";
 p1.style.fontSize = "25px";
-p1.style.padding = "10px";  
+p1.style.padding = "10px";
+
+
+// Modifica l'html
+const paragraph = document.getElementById("myParagraph");
+paragraph.innerHTML += ' <button onclick="alert(\'You did it:)!\')">Click here</button>';
+
+
+// Crea una lista
+const unorderedList = document.getElementById("unorderedList");
+
+// Creo <ul>
+const ul = document.createElement("ul");
+
+// Crea i list items
+const elements = ["First", "Second", "Third", "Fourth", "Fifth"];
+
+elements.forEach(text => {
+    const li = document.createElement("li");
+    li.textContent = text;
+    ul.appendChild(li);
+});
+
+unorderedList.appendChild(ul);
+
+
+
+// Submit
+const form = document.getElementById("myForm");
+
+form.addEventListener("submit", function (event) {
+    event.preventDefault(); // blocca il submit di default
+
+    const nome = document.getElementById("nome").value.trim();
+    const cognome = document.getElementById("cognome").value.trim();
+
+    if (nome === "" || cognome === "") {
+        alert("Fill out all form befor sending!");
+    } else {
+        alert("Form was send!");
+        form.submit(); // esegue il submit solo se i campi sono compilati
+    }
+});
